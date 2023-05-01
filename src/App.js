@@ -1,29 +1,47 @@
-import './App.css';
+import React, { useState, useEffect } from "react"
+import HttpClient from "./HttpClient"
 
-function App() {
+
+const nasaEndpoint = process.env.REACT_APP_NASA_ENDPOINT
+const nasaApiKey = process.env.REACT_APP_NASA_API_KEY
+
+
+const App = () => {
+  const [apod, setApod] = useState({})
+
+  useEffect(() => {
+    console.log(nasaEndpoint)
+    HttpClient.getApod().then(apodData => {
+      setApod(apodData.data)
+    })
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div style={{ maxWidth: 900, padding: 30 }}>
+      <h1>NASA API nasaEndpoint: {nasaEndpoint}</h1>
+      <h2>Astronomy Picture of the Day</h2>
+      {apod && (
+        <article>
+          <header>
+            {apod.title} - <i>{apod.date}</i>
+          </header>
+          <img src={apod.url} alt="APOD" width="800" height="auto" />
+          <p>{apod.explanation}</p>
+          <pre
+            style={{
+              overflowX: "auto",
+              whiteSpace: "pre-wrap",
+              wordWrap: "break-word",
+            }}
           >
-            Learn React
-          </a>
-        </p>
-      </header>
+            <hr />
+            {JSON.stringify(apod, null, 2)}
+          </pre>
+        </article>
+      )}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
+
