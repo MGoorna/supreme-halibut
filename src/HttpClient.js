@@ -1,7 +1,7 @@
 import axios from "axios"
 
-const nasaEndpoint = process.env.REACT_APP_NASA_ENDPOINT
-const nasaApiKey = process.env.REACT_APP_NASA_API_KEY
+const nasaEndpoint = process.env.REACT_APP_NASA_ENDPOINT ?? 'https://api.nasa.gov/'
+const nasaApiKey = process.env.REACT_APP_NASA_API_KEY ?? 'ggfIQPu1f91bruLYnS8QOe5wKhq9yBefoYV9aes9'
 
 axios.interceptors.request.use(
   config => {
