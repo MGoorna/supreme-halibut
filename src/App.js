@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <div style={{ maxWidth: 900, padding: 30 }}>
-      <h1>NASA API nasaEndpoint: {nasaEndpoint}</h1>
+      <h1>NASA API</h1>
       <h2>Astronomy Picture of the Day</h2>
       {apod && (
         <article>
